@@ -1,0 +1,32 @@
+
+//hgoa
+void miFuncion(void) {
+    int miVariable;
+    if (erestonto < hola && hola > hoa){
+      int miVariable;
+    } else {
+     int miVariable;
+    }
+    miVariable = 10;
+    /*g
+    hakdsf
+    */
+    return miVariable; //ghasshd
+}
+
+int main(void) {
+    while ( ! fgets(buffer, MAX_BUFFER, fp1) == NULL){
+            int longitud;
+            longitud = strlen(buffer);
+            int i;
+            for (i = 0; i < longitud ; i + 1) {
+              buffer[i] = toupper(buffer[i]);
+            }
+            fputs(buffer, fp2);
+            fflush(fp2);
+        }
+    }
+    miFuncion();
+    return 0;
+}
+

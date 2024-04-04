@@ -16,17 +16,15 @@ void miFuncion(void) {
 
 int main(void) {
     while ( ! fgets(buffer, MAX_BUFFER, fp1) == NULL){
-            int longitud;
-            longitud = strlen(buffer);
-            int i;
-            for (i = 0; i < longitud ; i + 1) {
-              buffer[i] = toupper(buffer[i]);
-            }
-            fputs(buffer, fp2);
-            fflush(fp2);
+        int longitud;
+        longitud = strlen(buffer);
+        int i;
+        for (i = 0; i < longitud ; i = i + 1) {
+          buffer = toupper(buffer);
         }
+        fputs(buffer, fp2);
+        fflush(fp2);
     }
-    miFuncion();
-    return 0;
 }
+
 

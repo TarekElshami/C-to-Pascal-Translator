@@ -1,4 +1,4 @@
-// Generated from C:/Users/aserr/OneDrive/Documentos/UNI/year_3/Procesaror de lenguajes/practicaLen_2-prueba/src/Practica2.g4 by ANTLR 4.13.1
+// Generated from C:/Users/burak/OneDrive - Universidad Rey Juan Carlos/Curso 3/Semestre 2/Procesadores del lenguaje/PracticaPL/src/Practica2.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**

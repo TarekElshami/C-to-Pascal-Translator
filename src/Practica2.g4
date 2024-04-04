@@ -24,13 +24,10 @@ factor2: '(' factor3 | ;
 factor3: lexp ')' | ')';
 restpart: IDENT '(' restpart2;
 restpart2: listparam ')' blq | 'void' ')' blq;
-sent: type lid ';'
-        | 'return' exp ';'
-        | IDENT sent2
-        |'if' '(' lcond ')' blq 'else' blq
-        | 'while' '(' lcond ')' blq
-        | 'do' blq 'until' '(' lcond ')'
-        | 'for' '(' IDENT '=' exp ';' lcond ';' IDENT '=' exp ')' blq;
+sent: type lid ';' | 'return' exp ';' | IDENT sent2 |'if' '(' lcond ')' blq 'else' blq
+                                                    | 'while' '(' lcond ')' blq
+                                                    | 'do' blq 'until' '(' lcond ')'
+                                                    | 'for' '(' IDENT '=' exp ';' lcond ';' IDENT '=' exp ')' blq;
 sent2: '=' exp ';'| '(' sent3;
 sent3: ')'';'| lexp ')'';';
 lcond : cond lcond2 | '!' cond lcond2;

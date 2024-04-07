@@ -1,6 +1,6 @@
 grammar Practica2;
-//r : (IDENT | CONSTFLOAT | CONSTINT | CONSTLIT | GPC | GPC2 | JUMP) + EOF;
-r : defines partes;
+
+program : defines partes;
 defines: '#define' IDENT ctes defines| ;
 ctes: CONSTINT | CONSTFLOAT | CONSTLIT;
 partes: part partes2;
@@ -65,7 +65,5 @@ fragment ESC_SEQ: '\\' '\'';
 fragment LETTER: [a-zA-Z];
 fragment HEX_DIGIT: [0-9A-F] ;
 fragment DIGIT: [0-9] ;
-
-// sintactico
 
 

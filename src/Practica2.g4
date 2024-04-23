@@ -1,14 +1,20 @@
 grammar Practica2;
 
+
+@members {
+ private Program program = new Program();
+}
+
 program : defines partes;
-defines: '#define' IDENT ctes defines| ;
-ctes: CONSTINT | CONSTFLOAT | CONSTLIT;
+defines: '#define' IDENT ctes {System.out.println("A"); program.addConstant($ctes.constante, $IDENT.text);} defines
+            | ;
+ctes returns [String constante]: CONSTINT {$constante = $CONSTINT.text;} | CONSTFLOAT {$constante = $CONSTFLOAT.text;} | CONSTLIT {$constante = $CONSTLIT.text;} ;
 partes: part partes2;
 partes2: partes | ;
 part: type restpart;
 blq: '{' sentlist '}';
-type: 'void' | 'int' | 'float';
-op: '+' | '-' | '*' | '/' | '%';
+type returns [String tipo]: 'void' {$tipo = "void";}| 'int' {$tipo = "int";}| 'float' {$tipo = "float";};
+op returns [String operacion]: '+' {$operacion = "+";}| '-' {$operacion = "-";} | '*' {$operacion = "*";} | '/' {$operacion = "/";}| '%'{$operacion = "%";};
 listparam: type IDENT listparam2;
 listparam2: ',' type IDENT listparam2 | ;
 sentlist: sent sentlist2;
@@ -32,9 +38,9 @@ sent2: '=' exp ';'| '(' sent3;
 sent3: ')'';'| lexp ')'';';
 lcond : cond lcond2 | '!' cond lcond2;
 lcond2: opl lcond lcond2 | ;
-opl : '||' | '&&';
+opl returns [String andOr]: '||' {$andOr = "||";} | '&&' {$andOr = "&&";};
 cond : exp opr exp;
-opr: '==' | '<' | '>' | '>=' | '<=';
+opr returns [String comparacion]: '==' {$comparacion = "==";}| '<' {$comparacion = "<";}| '>' {$comparacion = ">";}| '>=' {$comparacion = ">=";}| '<=' {$comparacion = "<=";};
 
 
 
@@ -65,5 +71,3 @@ fragment ESC_SEQ: '\\' '\'';
 fragment LETTER: [a-zA-Z];
 fragment HEX_DIGIT: [0-9A-F] ;
 fragment DIGIT: [0-9] ;
-
-

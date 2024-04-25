@@ -30,14 +30,16 @@ factor2: '(' factor3 | ;
 factor3: lexp ')' | ')';
 restpart: IDENT '(' restpart2;
 restpart2: listparam ')' blq | 'void' ')' blq;
-sent: type lid ';' | 'return' exp ';' | IDENT sent2 |'if' '(' lcond ')' blq 'else' blq
-                                                    | 'while' '(' lcond ')' blq
-                                                    | 'do' blq 'until' '(' lcond ')'
-                                                    | 'for' '(' IDENT '=' exp ';' lcond ';' IDENT '=' exp ')' blq;
+sent: type lid ';' | 'return' exp ';'
+                   | IDENT sent2
+                   | 'if' '(' lcond ')' blq 'else' blq
+                   | 'while' '(' lcond ')' blq
+                   | 'do' blq 'until' '(' lcond ')'
+                   | 'for' '(' IDENT '=' exp ';' lcond ';' IDENT '=' exp ')' blq;
 sent2: '=' exp ';'| '(' sent3;
 sent3: ')'';'| lexp ')'';';
 lcond : cond lcond2 | '!' cond lcond2;
-lcond2: opl lcond lcond2 | ;
+lcond2: opl lcond lcond2 | ; //call to lcond2 is probably unneccesary
 opl returns [String andOr]: '||' {$andOr = "||";} | '&&' {$andOr = "&&";};
 cond : exp opr exp;
 opr returns [String comparacion]: '==' {$comparacion = "==";}| '<' {$comparacion = "<";}| '>' {$comparacion = ">";}| '>=' {$comparacion = ">=";}| '<=' {$comparacion = "<=";};
@@ -52,8 +54,8 @@ CONSTFLOAT: DECIMAL_REAL | OCTAL_REAL | HEXA_REAL;
 DECIMAL_INT:  ('+' | '-')? DIGIT+;
 DECIMAL_REAL: ('+' | '-')? DIGIT+ '.' DIGIT+;
 
-OCTAL_INT: '0' DECIMAL_INT;
-OCTAL_REAL: '0' DECIMAL_REAL;
+OCTAL_INT: '0' ('+' | '-')? OCT_DIGIT+;
+OCTAL_REAL: '0' ('+' | '-')? OCT_DIGIT+ '.' OCT_DIGIT+;
 
 HEXA_INT: '0x' ('+' | '-')? HEX_DIGIT+;
 HEXA_REAL: '0x' ('+' | '-')? HEX_DIGIT+ '.' HEX_DIGIT+;
@@ -70,4 +72,5 @@ JUMP: ('\r'? '\n' | ' ')+ -> skip;
 fragment ESC_SEQ: '\\' '\'';
 fragment LETTER: [a-zA-Z];
 fragment HEX_DIGIT: [0-9A-F] ;
+fragment OCT_DIGIT: [0-7] ;
 fragment DIGIT: [0-9] ;

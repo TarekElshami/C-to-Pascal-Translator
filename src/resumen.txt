@@ -1,0 +1,16 @@
+Cuidado con hacer 2+2, al parecer lo interpreta mal, se piensa que el +2 es un int.
+
+
+partes: concatenación de funciones
+part: función. tipo identificador(parametros) {}
+
+sentlist2: concatenación de sentencias.
+sent: sentencia. Puede ser: declaración de variables, devolver algo (return), asignar un valor a una variable, o hacer una llamada a una función.
+    Adicionalmente, puede ser bloques if, while, do, for.
+
+exp: expresión que es evaluada a un valor. Se usa para operaciones. Puede ser factor, o factor + factor - factor...
+factor: expresión que es evaluada a un valor (inmediatos, llamadas a funciones, operaciones entre paréntesis(+-*/))
+factor2: parámetros de una llamada a un método | nada
+factor3: listado de parámetros
+
+

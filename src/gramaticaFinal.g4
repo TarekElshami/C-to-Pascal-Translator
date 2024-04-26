@@ -20,10 +20,11 @@ formal_param : varlist ':' tbas | varlist ':' tbas ';' formal_param;
 tbas : 'INTEGER' | 'REAL';
 
 sent : asig ';' | proc_call ';'
-                  | 'if' '(' lcond ')' blq 'else' blq
-                  | 'while' '(' lcond ')' blq
-                  | 'do' blq 'until' '(' lcond ')'
-                  | 'for' '(' IDENT '=' exp ';' lcond ';' IDENT '=' exp ')' bl;
+                  | 'if' expcond 'then' blq 'else' blq
+                  | 'while' expcond 'do' blq
+                  | 'repeat' blq 'until' expcond ';'
+                  | 'for' IDENTIFIER ':=' exp inc exp 'do' blq;
+inc : 'to' | 'downto';
 asig : id ':=' exp;
 id : IDENTIFIER;
 exp : exp op exp | factor;
@@ -34,7 +35,7 @@ subpparamlist :'(' explist ')' |;
 explist : exp | exp ',' explist;
 proc_call : IDENTIFIER subpparamlist;
 
-lcond : lcond opl lcond | cond | '!' cond;
-opl : '||' | '&&';
-cond : exp opr exp;
-opr : '==' | '<' | '>' | '>=' | '<=';
+expcond : expcond oplog expcond | factorcond;
+oplog : 'or' | 'and';
+factorcond : exp opcomp exp | '(' exp ')' | 'not' factorcond;
+opcomp : '<' | '>' | '<=' | '>=' | '=';

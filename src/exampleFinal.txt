@@ -1,0 +1,75 @@
+program nombreDelPrograma;
+
+//defcte
+const
+    nombreDeConstante = 2; //ídem para real y string
+    otraConstante = "pepe";
+//importante, las dos constantes (probablemente) se reconocen como una única ctelist
+
+//defvar
+var
+    id1, id2, id3, id4 : INTEGER;
+    id5 : REAL;
+
+//defproc
+procedure procedimientoSinParams;
+    begin
+        id1 = "pepe";
+        callProcedure;
+    end;
+
+procedure nombreProcedimiento (p1, p2 : INTEGER; p3 : REAL );
+    //blq
+    //dcllist === variables locales, procedimientos/funciones locales
+    var id: REAL; //definiciones de variables locales
+
+    begin
+        //sentlist
+        id1 := "valor inmediato";
+        id2 := someVar;
+        id21 := (someVar + 4);
+        id3 := someFunct(3); //Ojo cuidao, que mínimo debe tener un parámetro
+        id4 := 5 div someFunct(2) * (someVar mod someOtherVar)
+
+        someProcCall;
+        someOtherProcCall(5, 2, id0);
+    end;
+
+//deffun
+function functionWithNoParams : INTEGER;
+    //dcllist === variables locales, procedimientos/funciones locales
+    begin
+        //sentlist: asignaciones y llamadas a procedimientos.
+    end;
+
+//"función main". Todo lo de encima es la dcllist de main
+begin
+    //IMPORTANTE, antes de cada begin hay una zona de declaración de constantes, variables, funciones, y procedimientos
+    if (3 + functCall) then //al parecer la condición puede ser un valor siempre que vaya entre paréntesis
+        //dcllist
+        begin
+        end
+    else
+        //dcllist...
+        begin
+        end
+
+    while (3+5) >= functCall(3,2) or not ("pepe") do
+        begin
+        end
+
+    repeat
+        begin
+        end
+    until (3+5) and not someVar = someOtherVar;
+
+    for newVar := 3 to 5 do
+        begin
+
+        end
+    for newVar := functCall(2) downto someVar do
+            begin
+
+            end
+
+end.

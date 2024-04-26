@@ -4,7 +4,7 @@ program nombreDelPrograma;
 const
     nombreDeConstante = 2; //ídem para real y string
     otraConstante = "pepe";
-//importante, las dos constantes (probablemente) se reconocen como una única ctelist
+//importante, las dos constantes (probablemente) se reconocen como una única ctelist. Mismo para las var
 
 //defvar
 var
@@ -21,7 +21,8 @@ procedure procedimientoSinParams;
 procedure nombreProcedimiento (p1, p2 : INTEGER; p3 : REAL );
     //blq
     //dcllist === variables locales, procedimientos/funciones locales
-    var id: REAL; //definiciones de variables locales
+    var
+        id: REAL; //definiciones de variables locales
 
     begin
         //sentlist
@@ -65,11 +66,9 @@ begin
 
     for newVar := 3 to 5 do
         begin
-
         end
     for newVar := functCall(2) downto someVar do
             begin
-
             end
 
 end.

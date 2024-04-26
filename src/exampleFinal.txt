@@ -30,7 +30,7 @@ procedure nombreProcedimiento (p1, p2 : INTEGER; p3 : REAL );
         id2 := someVar;
         id21 := (someVar + 4);
         id3 := someFunct(3); //Ojo cuidao, que mínimo debe tener un parámetro
-        id4 := 5 div someFunct(2) * (someVar mod someOtherVar)
+        id4 := 5 div someFunct(2) * (someVar mod someOtherVar);
 
         someProcCall;
         someOtherProcCall(5, 2, id0);
@@ -49,26 +49,32 @@ begin
     if (3 + functCall) then //al parecer la condición puede ser un valor siempre que vaya entre paréntesis
         //dcllist
         begin
+            id=3;
         end
     else
         //dcllist...
         begin
+            id=4;
         end
 
     while (3+5) >= functCall(3,2) or not ("pepe") do
         begin
+            someProcedureCall("a", 1);
         end
 
     repeat
         begin
+            pepe = "pepe";
         end
     until (3+5) and not someVar = someOtherVar;
 
     for newVar := 3 to 5 do
         begin
+            estaJuanEnCasa = llamaAJuanYDevuelve1SiEstaEnCasa;
         end
     for newVar := functCall(2) downto someVar do
-            begin
-            end
+        begin
+            print("AAAAAAAAAAAAAAAAAAAAAAAA");
+        end
 
 end.

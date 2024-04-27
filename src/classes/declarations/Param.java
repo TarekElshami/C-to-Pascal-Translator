@@ -1,6 +1,13 @@
 package classes.declarations;
 
-public class Param {
+import classes.Translation;
+
+public class Param implements Translation {
     private String name;
     private String type;
+
+    @Override
+    public String getTranslation() {
+        return null;
+    }
 }

@@ -1,5 +1,12 @@
 package classes.factors.conditionalfactors;
 
-public class Not implements FactorCond {
+import classes.Translation;
+
+public class Not implements FactorCond, Translation {
     private FactorCond factorCond;
+
+    @Override
+    public String getTranslation() {
+        return null;
+    }
 }

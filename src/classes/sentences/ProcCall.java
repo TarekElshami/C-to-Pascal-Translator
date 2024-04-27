@@ -1,4 +1,6 @@
-package classes;
+package classes.sentences;
+
+import classes.expression.Expression;
 
 import java.util.List;
 

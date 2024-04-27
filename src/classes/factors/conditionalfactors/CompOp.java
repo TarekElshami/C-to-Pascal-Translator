@@ -1,4 +1,4 @@
-package classes;
+package classes.factors.conditionalfactors;
 
 public enum CompOp {
     GREATER_THAN {

@@ -1,4 +1,6 @@
-package classes;
+package classes.expression;
+
+import classes.factors.normalfactors.Factor;
 
 import java.util.List;
 

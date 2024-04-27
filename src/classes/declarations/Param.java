@@ -1,4 +1,4 @@
-package classes;
+package classes.declarations;
 
 public class Param {
     private String name;

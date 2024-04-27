@@ -1,4 +1,7 @@
-package classes;
+package classes.sentences;
+
+import classes.Blq;
+import classes.expression.Expression;
 
 public class ForLoop implements Sent{
     private String name;

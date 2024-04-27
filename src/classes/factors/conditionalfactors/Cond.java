@@ -1,4 +1,4 @@
-package classes;
+package classes.factors.conditionalfactors;
 
 import java.util.List;
 

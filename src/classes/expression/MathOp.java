@@ -1,4 +1,4 @@
-package classes;
+package classes.expression;
 
 public enum MathOp {
     SUM {

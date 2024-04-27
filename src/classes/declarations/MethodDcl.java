@@ -1,4 +1,6 @@
-package classes;
+package classes.declarations;
+
+import classes.Blq;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package classes;
+package classes.declarations;
 
 public class VarDcl implements Declaration{
     private String type;

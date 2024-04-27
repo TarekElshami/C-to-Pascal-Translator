@@ -1,9 +1,6 @@
 package classes;
 
-public class Constant {
-
+public class Param {
     private String name;
     private String type;
-    private String value;
-
 }

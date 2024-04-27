@@ -2,7 +2,7 @@ grammar Practica2;
 
 
 @members {
- private Program program = new Program();
+ private classes.Program program = new classes.Program();
 }
 
 program : defines partes;

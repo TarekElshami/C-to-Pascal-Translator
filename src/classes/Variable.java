@@ -1,3 +1,5 @@
+package classes;
+
 public class Variable {
     private String name;
     private String type;

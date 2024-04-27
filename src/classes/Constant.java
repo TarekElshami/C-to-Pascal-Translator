@@ -1,3 +1,5 @@
+package classes;
+
 public class Constant {
 
     private String name;

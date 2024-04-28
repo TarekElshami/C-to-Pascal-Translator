@@ -41,6 +41,8 @@ function functionWithNoParams : INTEGER;
     //dcllist === variables locales, procedimientos/funciones locales
     begin
         //sentlist: asignaciones y llamadas a procedimientos.
+        return 10;
+        functionWithNoParams := 10;
     end;
 
 //"función main". Todo lo de encima es la dcllist de main

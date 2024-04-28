@@ -6,7 +6,7 @@ import classes.expression.Expression;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProcCall implements Sent, Translation {
+public class ProcCall implements SentWithName, Translation {
     private String name;
     private List<Expression> params;
 

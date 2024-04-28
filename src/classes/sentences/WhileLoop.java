@@ -7,6 +7,7 @@ import classes.factors.conditionalfactors.Cond;
 public class WhileLoop implements Sent, Translation {
     private Cond cond;
     private Blq block;
+    private boolean isWhile;
 
     public WhileLoop() {
     }
@@ -30,5 +31,13 @@ public class WhileLoop implements Sent, Translation {
 
     public void setBlock(Blq block) {
         this.block = block;
+    }
+
+    public boolean isWhile() {
+        return isWhile;
+    }
+
+    public void setWhile(boolean aWhile) {
+        isWhile = aWhile;
     }
 }

@@ -3,7 +3,7 @@ package classes.sentences;
 import classes.Translation;
 import classes.expression.Expression;
 
-public class Asig implements Sent, Translation {
+public class Asig implements SentWithName, Translation {
     private String name;
     private Expression value;
 

@@ -11,9 +11,6 @@ public class ForLoop implements Sent, Translation {
     private boolean inc;
     private Blq block;
 
-    public ForLoop() {
-    }
-
     @Override
     public String getTranslation() {
         return null;

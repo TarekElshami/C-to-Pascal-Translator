@@ -6,10 +6,12 @@ void miFuncion(void) {
     miVariable = 10;
 }
 
-void miFuncion(void param1, int param2) {
+int miFuncion(void param1, int param2) {
     int miVariable;
     miVariable = 10;
+    return 10;
 }
+
 
 
 

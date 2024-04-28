@@ -9,6 +9,11 @@ public class Param implements Translation {
     public Param() {
     }
 
+    public Param(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
+
     @Override
     public String getTranslation() {
         return null;

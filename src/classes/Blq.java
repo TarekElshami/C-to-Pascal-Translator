@@ -15,6 +15,14 @@ public class Blq implements Translation{
         sentList = new ArrayList<>();
     }
 
+    public void addDcl(Declaration dcl){
+        this.dclList.add(dcl);
+    }
+
+    public void addSent(Sent sent){
+        this.sentList.add(sent);
+    }
+
     @Override
     public String getTranslation() {
         return null;

@@ -8,8 +8,8 @@ public class VarDcl implements Declaration, Translation {
     private  String value;
 
     public boolean isConst(){
-        return value!=null;
-    }
+        return type!=null;
+    } //might need some work
 
     public VarDcl() {
     }

@@ -78,8 +78,8 @@ sent returns [Sent sentence, Declaration dcl]: type lid ';' {$sentence = null; V
                                              | 'while' '(' lcond ')' blq      {$dcl = null; WhileLoop whileLoop = new WhileLoop(); whileLoop.setWhile(true);  whileLoop.setCond($lcond.condition); whileLoop.setBlock($blq.block);}
                                              | 'do' blq 'until' '(' lcond ')' {$dcl = null; WhileLoop whileLoop = new WhileLoop(); whileLoop.setWhile(false); whileLoop.setCond($lcond.condition); whileLoop.setBlock($blq.block);}
                                              | 'for' '(' id1=IDENT '=' e1=exp ';' lcond ';' id2=IDENT '=' e2=exp ')' blq {$dcl = null;}; // Estamos por aquí!!!
-sent2 returns [SentWithName sentence]: '=' exp ';' {Asig asig = new Asig(); asig.setValue($exp.expression);}
-                             | '(' sent3;
+sent2 returns [SentWithName sentence]: '=' exp ';' {Asig asig = new Asig(); asig.setValue($exp.expression); $sentence = asig;}
+                             | '(' sent3 {$sentence = new ProcCall();};
 sent3 returns [List<Expression> params]: ')'';' {$params=null;}| lexp ')'';' {$params = $lexp.params;};
 lcond returns [Cond condition]: cond lcond2 | '!' cond lcond2;
 lcond2: opl lcond lcond2 | ; //call to lcond2 is probably unneccesary

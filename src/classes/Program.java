@@ -9,6 +9,7 @@ public class Program implements Translation{
     private Blq block;
 
     public Program() {
+        this.block = new Blq();
     }
 
     @Override

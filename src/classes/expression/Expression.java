@@ -3,6 +3,7 @@ package classes.expression;
 import classes.Translation;
 import classes.factors.normalfactors.Factor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Expression implements Translation{
@@ -10,6 +11,8 @@ public class Expression implements Translation{
     private List<MathOp> opList;
 
     public Expression() {
+        factorList = new ArrayList<>();
+        opList = new ArrayList<>();
     }
 
     @Override
@@ -17,6 +20,12 @@ public class Expression implements Translation{
         return null;
     }
 
+    public void addFactor(Factor factor){
+        factorList.add(factor);
+    }
+    public void addOp(MathOp op){
+        opList.add(op);
+    }
     public List<Factor> getFactorList() {
         return factorList;
     }

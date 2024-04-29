@@ -19,6 +19,17 @@ public class Cond implements Translation{
         return null;
     }
 
+    public void addAll(Cond condition){
+        factorList.addAll(condition.getFactorList());
+        opList.addAll(condition.getOpList());
+    }
+    public void addFactor(FactorCond factor){
+        factorList.add(factor);
+    }
+    public void addOp(LogOp op){
+        opList.add(op);
+    }
+
     public List<FactorCond> getFactorList() {
         return factorList;
     }

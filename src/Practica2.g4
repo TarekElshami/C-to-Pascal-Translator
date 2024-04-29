@@ -49,7 +49,7 @@ part: type restpart
 };
 blq returns [Blq block]: {$block = new Blq();} '{' sentlist[$block] '}';
 type returns [String tipo]: 'void' {$tipo = "void";}| 'int' {$tipo = "int";}| 'float' {$tipo = "float";};
-op returns [String operacion]: '+' {$operacion = "+";}| '-' {$operacion = "-";} | '*' {$operacion = "*";} | '/' {$operacion = "/";}| '%'{$operacion = "%";};
+op returns [MathOp operacion]: '+' {$operacion = MathOp.SUM;}| '-' {$operacion = MathOp.SUB;} | '*' {$operacion = MathOp.MULT;} | '/' {$operacion = MathOp.DIV;}| '%'{$operacion = MathOp.MOD;};
 listparam returns [List<Param> params]: type IDENT
 {
     $params = new ArrayList<>();
@@ -59,15 +59,19 @@ listparam returns [List<Param> params]: type IDENT
 listparam2[List<Param> params]: ',' type IDENT {params.add(new Param($type.tipo, $IDENT.text));} listparam2[params] | ;
 sentlist[Blq block] : sent {if ($sent.sentence!=null)block.addSent($sent.sentence); else block.addDcl($sent.dcl);} sentlist2[block];
 sentlist2[Blq block]: sent {if ($sent.sentence!=null)block.addSent($sent.sentence); else block.addDcl($sent.dcl);} sentlist2[block]| ;
-lid returns [String name]: IDENT lid2;
-lid2: ',' IDENT lid2 | ;
-lexp returns [List<Expression> params]: exp lexp2;
-lexp2: ',' exp lexp2 | ;
-exp returns [Expression expression]: factor exp2;
-exp2: op exp exp2| ;
-factor: '(' exp ')' | ctes | IDENT factor2;
-factor2: '(' factor3 | ;
-factor3: lexp ')' | ')';
+lid returns [String name]: IDENT {$name = $IDENT.text;} lid2[$name];
+lid2[String name]: ',' IDENT {name.concat(", " + $IDENT.text);} lid2[name] | ;
+lexp returns [List<Expression> params]: exp {$params = new ArrayList<>(); $params.add($exp.expression);} lexp2[$params] ;
+lexp2[List<Expression> params]: ',' exp {params.add($exp.expression);} lexp2[params] | ;
+exp returns [Expression expression]: {$expression = new Expression();} factor {$expression.addFactor($factor.fact);} exp2[$expression];
+exp2[Expression expression]: op {expression.addOp($op.operacion);} exp {expression.getFactorList().addAll($exp.expression.getFactorList());expression.getOpList().addAll($exp.expression.getOpList());} exp2[expression]| ;
+factor returns [Factor fact]: '(' exp ')' {Parenthesis par = new Parenthesis(); par.setValue($exp.expression); $fact=par;}
+                            | ctes {Inmediate inm = new Inmediate($ctes.constante); $fact = inm;}
+                            | IDENT {CallOrVar cov = new CallOrVar(); cov.setName($IDENT.text);} factor2 {if ($factor2.params==null) cov.setListParams(null); else cov.setListParams($factor2.params);}
+                            ;
+factor2 returns [List<Expression> params]: '(' factor3 {$params = $factor3.params;}
+        | {$params = null;};
+factor3 returns [List<Expression> params]: lexp ')' {$params = $lexp.params;}| ')'{$params = new ArrayList<>();};
 restpart returns[ String name, List<Param> params, Blq block]: IDENT {methName = $IDENT.text;} '(' restpart2 {$name=$IDENT.text;$params=$restpart2.params;$block=$restpart2.block;methName=null;};
 restpart2 returns [List<Param> params, Blq block]: listparam ')' {$params=$listparam.params;} blq {$block = $blq.block;}
     | 'void' ')' blq {$params = null;$block = $blq.block;};
@@ -77,15 +81,28 @@ sent returns [Sent sentence, Declaration dcl]: type lid ';' {$sentence = null; V
                                              | 'if' '(' lcond ')' b1=blq 'else' b2=blq {$dcl = null; IfLoop ifLoop = new IfLoop(); ifLoop.setCond($lcond.condition); ifLoop.setBlockIf($b1.block); ifLoop.setBlockElse($b2.block);}
                                              | 'while' '(' lcond ')' blq      {$dcl = null; WhileLoop whileLoop = new WhileLoop(); whileLoop.setWhile(true);  whileLoop.setCond($lcond.condition); whileLoop.setBlock($blq.block);}
                                              | 'do' blq 'until' '(' lcond ')' {$dcl = null; WhileLoop whileLoop = new WhileLoop(); whileLoop.setWhile(false); whileLoop.setCond($lcond.condition); whileLoop.setBlock($blq.block);}
-                                             | 'for' '(' id1=IDENT '=' e1=exp ';' lcond ';' id2=IDENT '=' e2=exp ')' blq {$dcl = null;}; // Estamos por aquí!!!
+                                             | 'for' '(' id1=IDENT '=' e1=exp ';' lcond ';' id2=IDENT '=' e2=exp ')' blq
+                                             {
+                                                $dcl = null;
+                                                ForManager forM = new ForManager();
+                                                forM.setNameAsig($id1.text);
+                                                forM.setExpAsig($e1.expression);
+                                                forM.setCond($lcond.condition);
+                                                forM.setNameIncrement($id2.text);
+                                                forM.setBlock($blq.block);
+
+                                                $sentence = forM.get();
+                                             }; // Estamos por aquí!!!
 sent2 returns [SentWithName sentence]: '=' exp ';' {Asig asig = new Asig(); asig.setValue($exp.expression); $sentence = asig;}
                              | '(' sent3 {$sentence = new ProcCall();};
 sent3 returns [List<Expression> params]: ')'';' {$params=null;}| lexp ')'';' {$params = $lexp.params;};
-lcond returns [Cond condition]: cond lcond2 | '!' cond lcond2;
-lcond2: opl lcond lcond2 | ; //call to lcond2 is probably unneccesary
-opl returns [String andOr]: '||' {$andOr = "||";} | '&&' {$andOr = "&&";};
-cond : exp opr exp;
-opr returns [String comparacion]: '==' {$comparacion = "==";}| '<' {$comparacion = "<";}| '>' {$comparacion = ">";}| '>=' {$comparacion = ">=";}| '<=' {$comparacion = "<=";};
+
+lcond returns [Cond condition]: cond {$condition=new Cond();$condition.addFactor($cond.fact);} lcond2[$condition]
+            | '!' cond {Not not = new Not(); not.setFactorCond($cond.fact); Cond condition=new Cond();condition.addFactor(not);} lcond2[$condition];
+lcond2[Cond condition]: opl {condition.addOp($opl.andOr);} lcond {condition.addAll($lcond.condition);} lcond2[condition] | ; //call to lcond2 is probably unneccesary
+opl returns [LogOp andOr]: '||' {$andOr = LogOp.OR;} | '&&' {$andOr = LogOp.AND;};
+cond returns [FactorCond fact]: e1=exp opr e2=exp {Comp comp = new Comp(); comp.setP1($e1.expression);comp.setP2($e2.expression);comp.setOp($opr.operator); $fact = comp;};
+opr returns [CompOp operator]: '==' {$operator = CompOp.EQUAL;}| '<' {$operator = CompOp.LESSER_THAN;}| '>' {$operator = CompOp.GREATER_THAN;}| '>=' {$operator = CompOp.GREATER_EQUAL;}| '<=' {$operator = CompOp.LESSER_EQUAL;};
 
 
 

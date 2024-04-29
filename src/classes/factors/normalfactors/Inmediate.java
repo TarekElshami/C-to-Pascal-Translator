@@ -5,6 +5,8 @@ import classes.Translation;
 public class Inmediate implements Factor, Translation {
     private String value;
 
+    public Inmediate() {
+    }
     public Inmediate(String value) {
         this.value = value;
     }

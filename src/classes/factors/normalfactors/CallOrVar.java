@@ -17,7 +17,17 @@ public class CallOrVar implements Factor {
 
     @Override
     public String getTranslation() {
-        return null;
+        String translation = "";
+        translation += name;
+        if (listParams == null || listParams.isEmpty()) return translation;
+        translation += "(";
+        for (Expression exp : listParams) {
+            translation += exp.getTranslation();
+            translation += ", ";
+        }
+        translation = translation.substring(0,translation.length()-2);
+        translation += ")";
+        return translation;
     }
 
     public String getName() {

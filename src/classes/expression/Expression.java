@@ -17,7 +17,15 @@ public class Expression implements Translation{
 
     @Override
     public String getTranslation() {
-        return "SomeExpression";
+        String translation = "";
+        for (int i = 0; i < opList.size()-1; i++) {
+            translation += factorList.get(i).getTranslation();
+            translation += " ";
+            translation += opList.get(i).toString();
+            translation += " ";
+        }
+        translation += factorList.get(factorList.size()-1).getTranslation();
+        return translation;
     }
 
     public void addFactor(Factor factor){

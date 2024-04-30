@@ -13,7 +13,7 @@ public class Inmediate implements Factor {
 
     @Override
     public String getTranslation() {
-        return null;
+        return value;
     }
 
     public String getValue() {

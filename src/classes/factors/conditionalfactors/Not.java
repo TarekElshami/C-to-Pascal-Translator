@@ -2,7 +2,7 @@ package classes.factors.conditionalfactors;
 
 import classes.Translation;
 
-public class Not implements FactorCond, Translation {
+public class Not implements FactorCond {
     private FactorCond factorCond;
 
     public Not() {

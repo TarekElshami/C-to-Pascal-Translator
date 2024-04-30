@@ -6,7 +6,7 @@ import classes.expression.Expression;
 import classes.factors.conditionalfactors.FactorCond;
 import classes.factors.normalfactors.Factor;
 
-public class Parenthesis implements Factor, FactorCond, Translation {
+public class Parenthesis implements Factor, FactorCond {
     private Expression value;
 
     public Parenthesis() {

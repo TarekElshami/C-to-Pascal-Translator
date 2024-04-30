@@ -2,7 +2,7 @@ package classes.declarations;
 
 import classes.Translation;
 
-public class VarDcl implements Declaration, Translation {
+public class VarDcl implements Declaration {
     private String type;
     private String name;
     private  String value;

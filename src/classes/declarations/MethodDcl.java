@@ -5,7 +5,7 @@ import classes.Translation;
 
 import java.util.List;
 
-public class MethodDcl implements Declaration, Translation {
+public class MethodDcl implements Declaration {
 
     private String name;
     private List<Param> listParam;

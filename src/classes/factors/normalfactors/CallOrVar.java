@@ -7,7 +7,7 @@ import classes.expression.Expression;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CallOrVar implements Factor, Translation {
+public class CallOrVar implements Factor {
     private String name;
     private List<Expression> listParams;
 

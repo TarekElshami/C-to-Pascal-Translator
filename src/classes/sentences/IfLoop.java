@@ -4,7 +4,7 @@ import classes.Blq;
 import classes.Translation;
 import classes.factors.conditionalfactors.Cond;
 
-public class IfLoop implements Sent, Translation {
+public class IfLoop implements Sent {
     private Cond cond;
     private Blq blockIf;
     private Blq blockElse;

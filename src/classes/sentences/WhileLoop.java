@@ -4,7 +4,7 @@ import classes.Blq;
 import classes.Translation;
 import classes.factors.conditionalfactors.Cond;
 
-public class WhileLoop implements Sent, Translation {
+public class WhileLoop implements Sent {
 
     private Sent beforeWhile;
     private Cond cond;

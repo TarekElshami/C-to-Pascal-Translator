@@ -2,7 +2,7 @@ package classes.factors.normalfactors;
 
 import classes.Translation;
 
-public class Inmediate implements Factor, Translation {
+public class Inmediate implements Factor {
     private String value;
 
     public Inmediate() {

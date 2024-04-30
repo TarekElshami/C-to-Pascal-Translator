@@ -4,7 +4,7 @@ import classes.Blq;
 import classes.Translation;
 import classes.expression.Expression;
 
-public class ForLoop implements Sent, Translation {
+public class ForLoop implements Sent {
     private String name;
     private Expression ini;
     private Expression fin;

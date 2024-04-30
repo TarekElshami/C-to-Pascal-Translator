@@ -3,7 +3,7 @@ package classes.factors.conditionalfactors;
 import classes.Translation;
 import classes.expression.Expression;
 
-public class Comp implements FactorCond, Translation {
+public class Comp implements FactorCond {
     private Expression p1;
     private Expression p2;
     private CompOp op;

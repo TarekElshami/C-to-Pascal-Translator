@@ -42,6 +42,7 @@ part: type restpart
 
     if ("main".equals(method.getName())) {
         program.setHasMain(true);
+        program.getBlock().getDclList().addAll(method.getBlock().getDclList());
         program.getBlock().setSentList(method.getBlock().getSentList());
     } else {
         program.getBlock().addDcl(method);

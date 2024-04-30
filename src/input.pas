@@ -1,4 +1,4 @@
-unit input;
+program main;
 const
 	stringConst = 'string without quote marks, unless they have a backslash like: \' This is still part of the const'
 	decimalIntConst = +9
@@ -7,10 +7,13 @@ const
 	decimalFloatConst = +9.32
 	octalFloatConst = 0-3.06
 	hexFloatConst = 0x+A9F.7D
+var
+	i, j: INTEGER;
+	pepe, juan, miguel: REAL;
 procedure voidReturnFunction(voidParam, voidParam2: void; intParam: INTEGER; floatParam: REAL);
 	var
 		voidVar1, voidVar2, voidVar3, voidVar4: void;
-	    intVar1, intVar2: INTEGER;
+		intVar1, intVar2: INTEGER;
 		unreachableVar: REAL;
 	begin
 		someVar := ( ( puedesAnidarTantosComoQuieras ) );
@@ -51,4 +54,8 @@ function functionName() : INTEGER;
 			var0 := var0 + 1;
 		end
 	end;
-.
+begin
+	i := 0;
+	funcion;
+	funcion2;
+end.

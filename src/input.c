@@ -54,5 +54,14 @@ int functionName(void){
     for (var0 = -07; var0>f(0xFF); var0 = var0 + 1) {
         noPermiteBloquesVacios();
     }
+}
 
+int main(void){
+    int i;
+    int j;
+    float pepe;
+    float juan, miguel;
+    i = 0;
+    funcion();
+    funcion2(a, b, 12);
 }

@@ -1,4 +1,6 @@
 package classes.declarations;
 
-public interface Declaration {
+import classes.Translation;
+
+public interface Declaration extends Translation {
 }

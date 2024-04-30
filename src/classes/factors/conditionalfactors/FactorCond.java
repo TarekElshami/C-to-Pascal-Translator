@@ -1,4 +1,6 @@
 package classes.factors.conditionalfactors;
 
-public interface FactorCond {
+import classes.Translation;
+
+public interface FactorCond extends Translation {
 }

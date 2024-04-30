@@ -11,12 +11,17 @@ public class VarDcl implements Declaration, Translation {
         return type!=null;
     } //might need some work
 
-    public VarDcl() {
-    }
+    public VarDcl() {}
 
     @Override
     public String getTranslation() {
-        return null;
+        String translation = "";
+        translation += name;
+        translation += ":";
+        translation += type;
+        translation += ";";
+        return translation;
+
     }
 
     public String getType() {

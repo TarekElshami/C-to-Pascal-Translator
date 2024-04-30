@@ -1,7 +1,5 @@
 package classes;
 
-import java.util.List;
-
 public class Program implements Translation{
 
     private boolean hasMain;
@@ -14,7 +12,28 @@ public class Program implements Translation{
 
     @Override
     public String getTranslation() {
-        return null;
+        if (hasMain) return getTranslationProgram();
+        else return getTranslationUnit();
+    }
+
+    private String getTranslationUnit() {
+        String translation = "";
+        translation += "unit";
+        translation += "nombreDeLaUnidad";
+        translation += ";\n";
+        translation += block.getTranslation();
+        translation += ".";
+        return translation;
+    }
+
+    private String getTranslationProgram() {
+        String translation = "";
+        translation += "program";
+        translation += "nombreDelPrograma";
+        translation += ";\n";
+        translation += block.getTranslation();
+        translation += ".";
+        return translation;
     }
 
     public boolean hasMain() {

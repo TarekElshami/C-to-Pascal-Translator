@@ -1,4 +1,6 @@
 package classes.factors.normalfactors;
 
-public interface Factor {
+import classes.Translation;
+
+public interface Factor extends Translation {
 }

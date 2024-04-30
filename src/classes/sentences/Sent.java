@@ -1,4 +1,6 @@
 package classes.sentences;
 
-public interface Sent {
+import classes.Translation;
+
+public interface Sent extends Translation {
 }

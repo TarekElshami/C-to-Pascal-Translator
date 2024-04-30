@@ -5,12 +5,14 @@ import classes.Translation;
 public class Not implements FactorCond {
     private FactorCond factorCond;
 
-    public Not() {
-    }
+    public Not() {}
 
     @Override
     public String getTranslation() {
-        return null;
+        String translation = "";
+        translation += "not ";
+        translation += factorCond.getTranslation();
+        return translation;
     }
 
     public FactorCond getFactorCond() {

@@ -9,12 +9,20 @@ public class IfLoop implements Sent {
     private Blq blockIf;
     private Blq blockElse;
 
-    public IfLoop() {
-    }
+    public IfLoop() {}
 
     @Override
     public String getTranslation() {
-        return "if";
+        String translation = "";
+        translation += "if ";
+        translation += cond.getTranslation();
+        translation += " then\n";
+        translation += blockIf.getTranslation();
+        if (blockElse!=null) {
+            translation += "\nelse\n";
+            translation += blockElse.getTranslation();
+        }
+        return translation;
     }
 
     public Cond getCond() {

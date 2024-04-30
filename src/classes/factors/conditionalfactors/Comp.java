@@ -8,12 +8,15 @@ public class Comp implements FactorCond {
     private Expression p2;
     private CompOp op;
 
-    public Comp() {
-    }
+    public Comp() {}
 
     @Override
     public String getTranslation() {
-        return null;
+        String translation = "";
+        translation += p1.getTranslation();
+        translation += " " + op.toString() + " ";
+        translation += p2.getTranslation();
+        return translation;
     }
 
     public Expression getP1() {

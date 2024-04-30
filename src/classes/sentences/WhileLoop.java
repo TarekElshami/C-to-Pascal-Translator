@@ -17,7 +17,29 @@ public class WhileLoop implements Sent {
 
     @Override
     public String getTranslation() {
-        return "WhileOrDoUntil";
+        if (isWhile) return getTranslationWhile();
+        else return getTranslationUntil();
+    }
+
+    private String getTranslationWhile() {
+        String translation = "";
+        if (beforeWhile!=null) translation += beforeWhile.getTranslation() + "\n";
+        translation += "while ";
+        translation += cond.getTranslation();
+        translation += " do\n";
+        translation += block.getTranslation();
+        return translation;
+    }
+
+    private String getTranslationUntil() {
+        String translation = "";
+        translation += "repeat\n";
+        translation += block.getTranslation();
+        translation += "\nuntil ";
+        translation += cond.getTranslation();
+        translation += ";";
+
+        return translation;
     }
 
     public Cond getCond() {

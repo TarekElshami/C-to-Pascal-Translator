@@ -14,7 +14,11 @@ public class Parenthesis implements Factor, FactorCond {
 
     @Override
     public String getTranslation() {
-        return null;
+        String translation = "";
+        translation += "( ";
+        translation += value.getTranslation();
+        translation += " )";
+        return translation;
     }
 
     public Expression getValue() {

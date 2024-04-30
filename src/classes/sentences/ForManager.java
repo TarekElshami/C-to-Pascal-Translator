@@ -39,6 +39,8 @@ public class ForManager {
         inc.setName(nameIncrement);
         inc.setValue(expIncrement);
         whileLoop.getBlock().addSent(inc);
+
+        whileLoop.setWhile(true);
         return whileLoop;
     }
 

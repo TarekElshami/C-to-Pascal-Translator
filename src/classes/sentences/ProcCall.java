@@ -16,7 +16,16 @@ public class ProcCall implements SentWithName {
 
     @Override
     public String getTranslation() {
-        return "ProcCall";
+        String translation = "";
+        translation += name;
+        if (params != null) {
+            translation += "(";
+            for (Expression exp : params) {
+                translation += exp.getTranslation();
+            }
+            translation += ")";
+        }
+        return translation;
     }
 
     public String getName() {

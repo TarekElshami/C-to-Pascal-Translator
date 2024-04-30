@@ -16,7 +16,15 @@ public class Cond implements Translation{
 
     @Override
     public String getTranslation() {
-        return null;
+        String translation = "";
+        for (int i = 0; i < opList.size()-1; i++) {
+            translation += factorList.get(i).getTranslation();
+            translation += " ";
+            translation += opList.get(i).toString();
+            translation += " ";
+        }
+        translation += factorList.get(factorList.size()-1).getTranslation();
+        return translation;
     }
 
     public void addAll(Cond condition){

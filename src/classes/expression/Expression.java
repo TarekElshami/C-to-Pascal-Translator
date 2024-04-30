@@ -17,7 +17,7 @@ public class Expression implements Translation{
 
     @Override
     public String getTranslation() {
-        return null;
+        return "SomeExpression";
     }
 
     public void addFactor(Factor factor){

@@ -20,7 +20,7 @@ public class Program implements Translation{
     private String getTranslationUnit() {
         String translation = "";
         translation += "unit ";
-        translation += "nombreDeLaUnidad";
+        translation += name;
         translation += ";\n";
         translation += block.getDclListTranslation();
         translation += ".";
@@ -30,7 +30,7 @@ public class Program implements Translation{
     private String getTranslationProgram() {
         String translation = "";
         translation += "program ";
-        translation += "nombreDelPrograma";
+        translation += "main";
         translation += ";\n";
         translation += block.getTranslation();
         translation += ".";

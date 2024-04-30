@@ -18,13 +18,14 @@ public class ProcCall implements SentWithName {
     public String getTranslation() {
         String translation = "";
         translation += name;
-        if (params != null) {
+        if (params != null && !params.isEmpty()) {
             translation += "(";
             for (Expression exp : params) {
                 translation += exp.getTranslation();
             }
             translation += ")";
         }
+        translation += ";";
         return translation;
     }
 

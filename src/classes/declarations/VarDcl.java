@@ -19,7 +19,7 @@ public class VarDcl implements Declaration {
 
         String translation = "";
         translation += name;
-        translation += ":";
+        translation += ": ";
         translation += type;
         translation += ";";
         return translation;

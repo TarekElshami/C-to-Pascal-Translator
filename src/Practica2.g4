@@ -19,7 +19,7 @@ import java.util.List;
  private String methName = null;
 }
 
-program : defines partes {System.out.println(program.getTranslation());};
+program[String name] : {program.setName(name);} defines partes {System.out.println(program.getTranslation());};
 defines: '#define' IDENT ctes
 {
     VarDcl constant = new VarDcl();
@@ -48,19 +48,19 @@ part: type restpart
     }
 };
 blq returns [Blq block]: {$block = new Blq();} '{' sentlist[$block] '}';
-type returns [String tipo]: 'void' {$tipo = "void";}| 'int' {$tipo = "int";}| 'float' {$tipo = "float";};
+type returns [String tipo]: 'void' {$tipo = "void";}| 'int' {$tipo = "INTEGER";}| 'float' {$tipo = "REAL";};
 op returns [MathOp operacion]: '+' {$operacion = MathOp.SUM;}| '-' {$operacion = MathOp.SUB;} | '*' {$operacion = MathOp.MULT;} | '/' {$operacion = MathOp.DIV;}| '%'{$operacion = MathOp.MOD;};
 listparam returns [List<Param> params]: type IDENT
 {
     $params = new ArrayList<>();
-    $params.add(new Param($type.tipo, $IDENT.text));
+    $params.add(new Param($IDENT.text, $type.tipo));
 } listparam2[$params];
 
-listparam2[List<Param> params]: ',' type IDENT {params.add(new Param($type.tipo, $IDENT.text));} listparam2[params] | ;
+listparam2[List<Param> params]: ',' type IDENT {params.add(new Param($IDENT.text, $type.tipo));} listparam2[params] | ;
 sentlist[Blq block] : sent {if ($sent.sentence!=null)block.addSent($sent.sentence); else block.addDcl($sent.dcl);} sentlist2[block];
 sentlist2[Blq block]: sent {if ($sent.sentence!=null)block.addSent($sent.sentence); else block.addDcl($sent.dcl);} sentlist2[block]| ;
-lid returns [String name]: IDENT {$name = $IDENT.text;} lid2[$name];
-lid2[String name]: ',' IDENT {name.concat(", " + $IDENT.text);} lid2[name] | ;
+lid returns [String name]: IDENT {$name = $IDENT.text; List<String> names = new ArrayList<>();} lid2[names] {for (String s :names) {$name += ", " +s;}};
+lid2[List<String> names]: ',' IDENT {names.add($IDENT.text);} lid2[names] | ;
 lexp returns [List<Expression> params]: exp {$params = new ArrayList<>(); $params.add($exp.expression);} lexp2[$params] ;
 lexp2[List<Expression> params]: ',' exp {params.add($exp.expression);} lexp2[params] | ;
 exp returns [Expression expression]: {$expression = new Expression();} factor {$expression.addFactor($factor.fact);} exp2[$expression];
@@ -99,7 +99,7 @@ sent2 returns [SentWithName sentence]: '=' exp ';' {Asig asig = new Asig(); asig
 sent3 returns [List<Expression> params]: ')'';' {$params=null;}| lexp ')'';' {$params = $lexp.params;};
 
 lcond returns [Cond condition]: cond {$condition=new Cond();$condition.addFactor($cond.fact);} lcond2[$condition]
-            | '!' cond {Not not = new Not(); not.setFactorCond($cond.fact); Cond condition=new Cond();condition.addFactor(not);} lcond2[$condition];
+            | '!' cond {Not not = new Not(); not.setFactorCond($cond.fact); $condition=new Cond();$condition.addFactor(not);} lcond2[$condition];
 lcond2[Cond condition]: opl {condition.addOp($opl.andOr);} lcond {condition.addAll($lcond.condition);} lcond2[condition] | ; //call to lcond2 is probably unneccesary
 opl returns [LogOp andOr]: '||' {$andOr = LogOp.OR;} | '&&' {$andOr = LogOp.AND;};
 cond returns [FactorCond fact]: e1=exp opr e2=exp {Comp comp = new Comp(); comp.setP1($e1.expression);comp.setP2($e2.expression);comp.setOp($opr.operator); $fact = comp;};

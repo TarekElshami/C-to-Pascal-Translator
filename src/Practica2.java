@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.Arrays;
+import java.util.List;
 
 import org.antlr.v4.runtime.*;
 
@@ -25,7 +27,18 @@ public class Practica2 {
             anasint.removeErrorListeners(); // Elimina los listeners de error predeterminados
             anasint.addErrorListener(new CustomErrorListener(2)); // Añade el custom listener
 
-            anasint.program();
+            String arg = args[0];
+            List<String> split = Arrays.asList(arg.split("/"));
+            String name = split.get(split.size() - 1).split("\\.")[0];
+            String filename = "";
+            for (String s : split.subList(0,split.size()-1)) {
+                filename += s + "/";
+            }
+            filename += name + ".pas";
+
+            PrintStream out = new PrintStream(new FileOutputStream(filename));
+            System.setOut(out);
+            anasint.program(name);
         } catch (org.antlr.v4.runtime.RecognitionException e) {
             //Fallo al reconocer la entrada
             System.err.println("REC " + e.getMessage());

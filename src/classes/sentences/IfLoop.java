@@ -16,11 +16,11 @@ public class IfLoop implements Sent {
         String translation = "";
         translation += "if ";
         translation += cond.getTranslation();
-        translation += " then\n";
-        translation += blockIf.getTranslation();
+        translation += " then";
+        translation += blockIf.getTabulatedTranslation();
         if (blockElse!=null) {
-            translation += "\nelse\n";
-            translation += blockElse.getTranslation();
+            translation += "\n\telse";
+            translation += blockElse.getTabulatedTranslation();
         }
         return translation;
     }

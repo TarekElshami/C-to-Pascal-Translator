@@ -18,7 +18,7 @@ public class Param implements Translation {
     public String getTranslation() {
         String translation = "";
         translation += name;
-        translation += ":";
+        translation += ": ";
         translation += type;
         return translation;
     }

@@ -1,6 +1,7 @@
 package classes.declarations;
 
 import classes.Blq;
+import classes.Program;
 import classes.Translation;
 
 import java.util.List;
@@ -22,14 +23,31 @@ public class MethodDcl implements Declaration {
         else translation += "function ";
         translation += name;
         translation += "(";
-        if (listParam!=null) for (Param param : listParam) {
-            translation += param.getTranslation();
-            translation += "; ";
+        String lastType = "";
+        if (listParam!=null) for (int i = 0; i<listParam.size();i++) {
+            Param param = listParam.get(i);
+            //if (i!=0 && listParam.get(i-1).getType().equals(param.getType()))
+            if (!lastType.equals(param.getType()) && !lastType.isEmpty()){
+                translation = translation.substring(0,translation.length()-2);
+                translation += ": ";
+                translation += lastType;
+                translation += "; ";
+            }
+            translation += param.getName() + ", ";
+            lastType = param.getType();
+
+            if (i == listParam.size()-1) {
+                translation = translation.substring(0,translation.length()-2);
+                translation += ": ";
+                translation += lastType;
+            }
+            //translation += param.getTranslation();
+            //translation += "; ";
         }
         translation += ")";
         if (!"void".equals(type)) translation += " : " + type;
         translation += ";";
-        translation += block.getTranslation();
+        translation += block.getTabulatedTranslation();
         translation += ";";
         return translation;
     }

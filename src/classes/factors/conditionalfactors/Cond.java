@@ -17,7 +17,7 @@ public class Cond implements Translation{
     @Override
     public String getTranslation() {
         String translation = "";
-        for (int i = 0; i < opList.size()-1; i++) {
+        for (int i = 0; i < opList.size(); i++) {
             translation += factorList.get(i).getTranslation();
             translation += " ";
             translation += opList.get(i).toString();

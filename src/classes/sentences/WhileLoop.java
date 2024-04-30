@@ -1,6 +1,7 @@
 package classes.sentences;
 
 import classes.Blq;
+import classes.Program;
 import classes.Translation;
 import classes.factors.conditionalfactors.Cond;
 
@@ -23,19 +24,19 @@ public class WhileLoop implements Sent {
 
     private String getTranslationWhile() {
         String translation = "";
-        if (beforeWhile!=null) translation += beforeWhile.getTranslation() + "\n";
+        if (beforeWhile!=null) translation += beforeWhile.getTranslation() + "\n\t";
         translation += "while ";
         translation += cond.getTranslation();
-        translation += " do\n";
-        translation += block.getTranslation();
+        translation += " do";
+        translation += block.getTabulatedTranslation();
         return translation;
     }
 
     private String getTranslationUntil() {
         String translation = "";
-        translation += "repeat\n";
-        translation += block.getTranslation();
-        translation += "\nuntil ";
+        translation += "repeat";
+        translation += block.getTabulatedTranslation();
+        translation += "\n\tuntil ";
         translation += cond.getTranslation();
         translation += ";";
 

@@ -27,7 +27,8 @@ public class Blq implements Translation{
 
     @Override
     public String getTranslation() {
-        String translation = "\n-------STARTING NEW BLOCK-------\n";
+        //String translation = "\n-------STARTING NEW BLOCK-------\n";
+        String translation = "";
         translation += getDclListTranslation();
 
         translation += "begin\n";
@@ -41,20 +42,47 @@ public class Blq implements Translation{
         return translation;
     }
 
+    public String getTabulatedTranslation(){
+        String str = getTranslation();
+        String result = "";
+        for (String s : str.split("\n")) {
+            result += "\n\t" + s;
+        }
+        return result;
+    }
+
     public String getDclListTranslation(){
         String translation = "";
         String constants = "";
         String vars = "";
         String other = "";
-        for (Declaration dcl : dclList) {
+        for (int i=0; i<dclList.size();i++) {
+            Declaration dcl = dclList.get(i);
             if ((dcl instanceof VarDcl) && ((VarDcl) dcl).isConst()) {
                 constants += "\t";
                 constants += dcl.getTranslation();
                 constants += "\n";
             } else if ((dcl instanceof VarDcl) && !((VarDcl) dcl).isConst()) {
-                vars += "\t";
-                vars += dcl.getTranslation();
-                vars += "\n";
+                VarDcl current = (VarDcl) dcl;
+                if (i==0 || !(dclList.get(i-1) instanceof VarDcl) || !Objects.equals(((VarDcl)dclList.get(i-1)).getType(), current.getType())){
+                    vars += "\t";
+                }
+                if (i==dclList.size()-1) {
+                    vars += current.getTranslation();
+                    vars += "\n";
+                } else {
+                    Declaration dcl1 = dclList.get(i + 1);
+                    if (dcl1 instanceof VarDcl && Objects.equals(((VarDcl) dcl1).getType(), current.getType())){
+                        vars += current.getName() + ", ";
+                    } else {
+                        vars += current.getTranslation();
+                        vars += "\n";
+                    }
+                }
+
+
+                //vars += dcl.getTranslation();
+
             } else {
                 other += dcl.getTranslation();
                 other += "\n";

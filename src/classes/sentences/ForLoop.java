@@ -20,8 +20,8 @@ public class ForLoop implements Sent {
         translation += ini.getTranslation();
         translation += (inc ? " to ":" downto ");
         translation += fin.getTranslation();
-        translation += " do\n";
-        translation += block.getTranslation();
+        translation += " do";
+        translation += block.getTabulatedTranslation();
 
         return translation;
     }

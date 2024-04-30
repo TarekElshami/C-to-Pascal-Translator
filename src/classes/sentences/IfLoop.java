@@ -14,7 +14,7 @@ public class IfLoop implements Sent {
 
     @Override
     public String getTranslation() {
-        return null;
+        return "if";
     }
 
     public Cond getCond() {

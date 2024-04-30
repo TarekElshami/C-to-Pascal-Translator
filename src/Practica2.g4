@@ -19,7 +19,7 @@ import java.util.List;
  private String methName = null;
 }
 
-program : defines partes;
+program : defines partes {System.out.println(program.getTranslation());};
 defines: '#define' IDENT ctes
 {
     VarDcl constant = new VarDcl();
@@ -76,11 +76,11 @@ restpart returns[ String name, List<Param> params, Blq block]: IDENT {methName =
 restpart2 returns [List<Param> params, Blq block]: listparam ')' {$params=$listparam.params;} blq {$block = $blq.block;}
     | 'void' ')' blq {$params = null;$block = $blq.block;};
 sent returns [Sent sentence, Declaration dcl]: type lid ';' {$sentence = null; VarDcl varDcl = new VarDcl(); varDcl.setType($type.tipo);varDcl.setName($lid.name);varDcl.setValue(null);$dcl= varDcl;}
-                                             | 'return' exp ';' {$dcl = null; Asig asig = new Asig(); asig.setName(methName); asig.setValue($exp.expression);}
+                                             | 'return' exp ';' {$dcl = null; Asig asig = new Asig(); asig.setName(methName); asig.setValue($exp.expression); $sentence = asig;}
                                              | IDENT sent2 {$dcl = null; SentWithName sent = $sent2.sentence; sent.setName($IDENT.text); $sentence = sent;}
-                                             | 'if' '(' lcond ')' b1=blq 'else' b2=blq {$dcl = null; IfLoop ifLoop = new IfLoop(); ifLoop.setCond($lcond.condition); ifLoop.setBlockIf($b1.block); ifLoop.setBlockElse($b2.block);}
-                                             | 'while' '(' lcond ')' blq      {$dcl = null; WhileLoop whileLoop = new WhileLoop(); whileLoop.setWhile(true);  whileLoop.setCond($lcond.condition); whileLoop.setBlock($blq.block);}
-                                             | 'do' blq 'until' '(' lcond ')' {$dcl = null; WhileLoop whileLoop = new WhileLoop(); whileLoop.setWhile(false); whileLoop.setCond($lcond.condition); whileLoop.setBlock($blq.block);}
+                                             | 'if' '(' lcond ')' b1=blq 'else' b2=blq {$dcl = null; IfLoop ifLoop = new IfLoop(); ifLoop.setCond($lcond.condition); ifLoop.setBlockIf($b1.block); ifLoop.setBlockElse($b2.block); $sentence = ifLoop;}
+                                             | 'while' '(' lcond ')' blq      {$dcl = null; WhileLoop whileLoop = new WhileLoop(); whileLoop.setWhile(true);  whileLoop.setCond($lcond.condition); whileLoop.setBlock($blq.block); $sentence = whileLoop;}
+                                             | 'do' blq 'until' '(' lcond ')' {$dcl = null; WhileLoop whileLoop = new WhileLoop(); whileLoop.setWhile(false); whileLoop.setCond($lcond.condition); whileLoop.setBlock($blq.block); $sentence = whileLoop;}
                                              | 'for' '(' id1=IDENT '=' e1=exp ';' lcond ';' id2=IDENT '=' e2=exp ')' blq
                                              {
                                                 $dcl = null;

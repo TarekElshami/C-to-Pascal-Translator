@@ -17,7 +17,7 @@ public class WhileLoop implements Sent {
 
     @Override
     public String getTranslation() {
-        return null;
+        return "WhileOrDoUntil";
     }
 
     public Cond getCond() {

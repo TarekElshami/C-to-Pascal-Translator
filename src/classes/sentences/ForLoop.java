@@ -13,7 +13,7 @@ public class ForLoop implements Sent {
 
     @Override
     public String getTranslation() {
-        return null;
+        return "for";
     }
 
     public String getName() {

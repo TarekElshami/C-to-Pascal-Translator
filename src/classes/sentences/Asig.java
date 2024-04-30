@@ -12,7 +12,7 @@ public class Asig implements SentWithName {
 
     @Override
     public String getTranslation() {
-        return null;
+        return "asig";
     }
 
     public String getName() {

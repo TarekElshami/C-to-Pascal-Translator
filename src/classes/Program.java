@@ -8,6 +8,7 @@ public class Program implements Translation{
 
     public Program() {
         this.block = new Blq();
+        hasMain = false;
     }
 
     @Override
@@ -18,17 +19,17 @@ public class Program implements Translation{
 
     private String getTranslationUnit() {
         String translation = "";
-        translation += "unit";
+        translation += "unit ";
         translation += "nombreDeLaUnidad";
         translation += ";\n";
-        translation += block.getTranslation();
+        translation += block.getDclListTranslation();
         translation += ".";
         return translation;
     }
 
     private String getTranslationProgram() {
         String translation = "";
-        translation += "program";
+        translation += "program ";
         translation += "nombreDelPrograma";
         translation += ";\n";
         translation += block.getTranslation();

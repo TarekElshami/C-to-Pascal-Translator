@@ -17,7 +17,21 @@ public class MethodDcl implements Declaration {
 
     @Override
     public String getTranslation() {
-        return null;
+        String translation = "";
+        if ("void".equals(type)) translation += "procedure ";
+        else translation += "function ";
+        translation += name;
+        translation += "(";
+        if (listParam!=null) for (Param param : listParam) {
+            translation += param.getTranslation();
+            translation += "; ";
+        }
+        translation += ")";
+        if (!"void".equals(type)) translation += " : " + type;
+        translation += ";";
+        translation += block.getTranslation();
+        translation += ";";
+        return translation;
     }
 
     public String getName() {

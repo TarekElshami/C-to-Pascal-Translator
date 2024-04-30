@@ -27,8 +27,22 @@ public class Blq implements Translation{
 
     @Override
     public String getTranslation() {
-        String translation = "";
+        String translation = "\n-------STARTING NEW BLOCK-------\n";
+        translation += getDclListTranslation();
 
+        translation += "begin\n";
+        for (Sent sent : sentList) {
+            translation += "\t";
+            translation += sent.getTranslation();
+            translation += "\n";
+        }
+        translation += "end";
+
+        return translation;
+    }
+
+    public String getDclListTranslation(){
+        String translation = "";
         String constants = "";
         String vars = "";
         String other = "";
@@ -42,27 +56,20 @@ public class Blq implements Translation{
                 vars += dcl.getTranslation();
                 vars += "\n";
             } else {
-                other += "\t";
                 other += dcl.getTranslation();
                 other += "\n";
             }
         }
-        translation += "const\n";
-        translation += constants;
-        translation += "var\n";
-        translation += vars;
-        translation += other;
-
-        translation += "begin\n";
-        for (Sent sent : sentList) {
-            translation += "\t";
-            translation += sent.getTranslation();
-            translation += "\n";
+        if (!constants.isEmpty()) {
+            translation += "const\n";
+            translation += constants;
         }
-        translation += "end";
-
+        if (!vars.isEmpty()) {
+            translation += "var\n";
+            translation += vars;
+        }
+        translation += other;
         return translation;
-
     }
 
     public List<Declaration> getDclList() {

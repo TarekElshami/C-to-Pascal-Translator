@@ -16,7 +16,11 @@ public class Param implements Translation {
 
     @Override
     public String getTranslation() {
-        return null;
+        String translation = "";
+        translation += name;
+        translation += ":";
+        translation += type;
+        return translation;
     }
 
     public String getName() {

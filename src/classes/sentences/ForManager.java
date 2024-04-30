@@ -4,7 +4,7 @@ import classes.Blq;
 import classes.Program;
 import classes.expression.Expression;
 import classes.expression.MathOp;
-import classes.factors.conditionalfactors.Cond;
+import classes.factors.conditionalfactors.*;
 import classes.factors.normalfactors.CallOrVar;
 import classes.factors.normalfactors.Factor;
 import classes.factors.normalfactors.Inmediate;
@@ -18,37 +18,78 @@ public class ForManager {
 
     private Blq block;
 
-    public Sent get(){
-        if (
-            expIncrement.getFactorList().size()==2
-            && expIncrement.getOpList().size() == 1
-        ) {
-            boolean to;
-            if (expIncrement.getOpList().get(0) == MathOp.SUM)  to = true;
-            else if (expIncrement.getOpList().get(0) == MathOp.SUB) to = false;
-            else return null; //for now
+    public Sent get() {
+        ForLoop forLoop = checkAndGetFor();
+        if (forLoop!=null) return forLoop;
+        return getWhile();
+    }
 
+    private Sent getWhile() {
+        WhileLoop whileLoop = new WhileLoop();
 
+        Asig asig = new Asig();
+        asig.setName(nameAsig);
+        asig.setValue(expAsig);
+        whileLoop.setBeforeWhile(asig);
 
-            Factor plus1 = expIncrement.getFactorList().get(1);
-            if (!(plus1 instanceof Inmediate)) return null;
+        whileLoop.setCond(cond);
+        whileLoop.setBlock(block);
 
-            //check second op
-            Inmediate i = (Inmediate) plus1;
-            if (!"1".equals(i.getValue())) return null;
+        Asig inc = new Asig();
+        inc.setName(nameIncrement);
+        inc.setValue(expIncrement);
+        whileLoop.getBlock().addSent(inc);
+        return whileLoop;
+    }
 
-            //check first op
-            Factor varName = expIncrement.getFactorList().get(0);
-            if (!(varName instanceof CallOrVar)) return null;
+    private ForLoop checkAndGetFor(){
+        if (expIncrement.getFactorList().size()!=2 || expIncrement.getOpList().size() != 1)
+            return null;
+        //comprobando signo incremento
+        boolean to;
+        if (expIncrement.getOpList().get(0) == MathOp.SUM)  to = true;
+        else if (expIncrement.getOpList().get(0) == MathOp.SUB) to = false;
+        else return null; //for now
 
-            CallOrVar cov = (CallOrVar) varName;
-            if (!cov.getName().equals(nameIncrement) || cov.getListParams()!=null) return null;
+        //check second op
+        Factor plus1 = expIncrement.getFactorList().get(1);
+        if (!(plus1 instanceof Inmediate)) return null;
 
+        Inmediate i = (Inmediate) plus1;
+        if (!"1".equals(i.getValue())) return null;
 
-        }
+        //check first op
+        Factor varName = expIncrement.getFactorList().get(0);
+        if (!(varName instanceof CallOrVar)) return null;
 
-            //&& expIncrement.getFactorList().get(1)
-        return new ForLoop();
+        CallOrVar cov = (CallOrVar) varName;
+        if (!cov.getName().equals(nameIncrement) || cov.getListParams()!=null) return null;
+
+        //comprobar la condición
+        if (!(cond.getFactorList().size()==1) || !(cond.getOpList().isEmpty())) return null;
+        FactorCond factorCond = cond.getFactorList().get(0);
+        if (!(factorCond instanceof Comp)) return null;
+        Comp comp = (Comp) factorCond;
+        if (!comp.getOp().equals(CompOp.LESSER_THAN) && !comp.getOp().equals(CompOp.GREATER_THAN)) return null;
+        if (comp.getOp().equals(CompOp.LESSER_THAN) && !to) return null;
+        if (comp.getOp().equals(CompOp.GREATER_THAN) && to) return null;
+
+        //check first op of conditional is a variable
+        Expression p1 = comp.getP1();
+        if (!(p1.getFactorList().size()==1) || !(p1.getOpList().isEmpty())) return null;
+        Factor leftSide = p1.getFactorList().get(0);
+        if (!(leftSide instanceof CallOrVar)) return null;
+        CallOrVar cov2 = (CallOrVar) leftSide;
+        if (cov2.getListParams()!=null) return null;
+
+        //all checks done?
+        ForLoop forLoop = new ForLoop();
+        forLoop.setName(nameAsig);
+        forLoop.setIni(expAsig);
+        forLoop.setFin(comp.getP2());
+        forLoop.setInc(to);
+        forLoop.setBlock(block);
+        return forLoop;
     }
 
     public ForManager() {

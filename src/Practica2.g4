@@ -67,7 +67,7 @@ exp returns [Expression expression]: {$expression = new Expression();} factor {$
 exp2[Expression expression]: op {expression.addOp($op.operacion);} exp {expression.getFactorList().addAll($exp.expression.getFactorList());expression.getOpList().addAll($exp.expression.getOpList());} exp2[expression]| ;
 factor returns [Factor fact]: '(' exp ')' {Parenthesis par = new Parenthesis(); par.setValue($exp.expression); $fact=par;}
                             | ctes {Inmediate inm = new Inmediate($ctes.constante); $fact = inm;}
-                            | IDENT {CallOrVar cov = new CallOrVar(); cov.setName($IDENT.text);} factor2 {if ($factor2.params==null) cov.setListParams(null); else cov.setListParams($factor2.params);}
+                            | IDENT {CallOrVar cov = new CallOrVar(); cov.setName($IDENT.text);} factor2 {if ($factor2.params==null) cov.setListParams(null); else cov.setListParams($factor2.params);$fact=cov;}
                             ;
 factor2 returns [List<Expression> params]: '(' factor3 {$params = $factor3.params;}
         | {$params = null;};
@@ -89,6 +89,7 @@ sent returns [Sent sentence, Declaration dcl]: type lid ';' {$sentence = null; V
                                                 forM.setExpAsig($e1.expression);
                                                 forM.setCond($lcond.condition);
                                                 forM.setNameIncrement($id2.text);
+                                                forM.setExpIncrement($e2.expression);
                                                 forM.setBlock($blq.block);
 
                                                 $sentence = forM.get();

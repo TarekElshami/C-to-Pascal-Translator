@@ -5,11 +5,14 @@ import classes.Translation;
 import classes.factors.conditionalfactors.Cond;
 
 public class WhileLoop implements Sent, Translation {
+
+    private Sent beforeWhile;
     private Cond cond;
     private Blq block;
     private boolean isWhile;
 
     public WhileLoop() {
+        beforeWhile=null;
     }
 
     @Override
@@ -39,5 +42,13 @@ public class WhileLoop implements Sent, Translation {
 
     public void setWhile(boolean aWhile) {
         isWhile = aWhile;
+    }
+
+    public Sent getBeforeWhile() {
+        return beforeWhile;
+    }
+
+    public void setBeforeWhile(Sent beforeWhile) {
+        this.beforeWhile = beforeWhile;
     }
 }

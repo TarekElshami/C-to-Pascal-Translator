@@ -14,12 +14,12 @@ public class CustomErrorListener extends BaseErrorListener {
                             RecognitionException e)
     {
         String RType = "";
-        if (type == 0){
+        if (type == 1){
             RType = "lexico";
         } else {
             RType = "sintáctico";
         }
-        System.err.println("Error " + RType + " en la línea "+line+" y columna "+charPositionInLine+" -> "+msg);
+        System.err.println("Error " + RType + " en la línea "+line+", columna "+charPositionInLine+" -> "+msg);
         underlineError(recognizer,(Token)offendingSymbol,
                 line, charPositionInLine);
     }

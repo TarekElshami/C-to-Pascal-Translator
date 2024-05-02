@@ -18,14 +18,14 @@ public class Practica2 {
 
             // Añade el CustomErrorListener al lexer
             analex.removeErrorListeners();
-            analex.addErrorListener(new CustomErrorListener(1));
+            analex.addErrorListener(new CustomErrorListener(0));
 
             // Crear el objeto correspondiente al analizador sintáctico
             Practica2Parser anasint = new Practica2Parser(tokens);
 
             // Aquí se añade el CustomErrorListener al parser
             anasint.removeErrorListeners(); // Elimina los listeners de error predeterminados
-            anasint.addErrorListener(new CustomErrorListener(2)); // Añade el custom listener
+            anasint.addErrorListener(new CustomErrorListener(1)); // Añade el custom listener
 
             String arg = args[0];
             List<String> split = Arrays.asList(arg.split("/"));

@@ -7,6 +7,7 @@ public class CustomErrorListener extends BaseErrorListener {
         this.type = i;
     }
 
+    @Override
     public void syntaxError(Recognizer<?, ?> recognizer,
                             Object offendingSymbol,
                             int line, int charPositionInLine,
@@ -14,14 +15,16 @@ public class CustomErrorListener extends BaseErrorListener {
                             RecognitionException e)
     {
         String RType = "";
-        if (type == 1){
+        if (type == 0){
             RType = "lexico";
         } else {
             RType = "sintáctico";
         }
-        System.err.println("Error " + RType + " en la línea "+line+", columna "+charPositionInLine+" -> "+msg);
-        underlineError(recognizer,(Token)offendingSymbol,
-                line, charPositionInLine);
+        System.err.println("Error " + RType + " en la línea "+line+" y columna "+charPositionInLine+" -> "+msg);
+        if (type!=0){
+            underlineError(recognizer,(Token)offendingSymbol,
+                    line, charPositionInLine);
+        }
     }
 
     protected void underlineError(Recognizer recognizer,

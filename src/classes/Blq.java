@@ -71,8 +71,8 @@ public class Blq implements Translation{
                     vars += current.getTranslation();
                     vars += "\n";
                 } else {
-                    Declaration dcl1 = dclList.get(i + 1);
-                    if (dcl1 instanceof VarDcl && Objects.equals(((VarDcl) dcl1).getType(), current.getType())){
+                    Declaration next = dclList.get(i + 1);
+                    if (next instanceof VarDcl && Objects.equals(((VarDcl) next).getType(), current.getType())){
                         vars += current.getName() + ", ";
                     } else {
                         vars += current.getTranslation();

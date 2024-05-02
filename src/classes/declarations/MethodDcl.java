@@ -27,7 +27,7 @@ public class MethodDcl implements Declaration {
         if (listParam!=null) for (int i = 0; i<listParam.size();i++) {
             Param param = listParam.get(i);
             //if (i!=0 && listParam.get(i-1).getType().equals(param.getType()))
-            if (!lastType.equals(param.getType()) && !lastType.isEmpty()){
+            if (i!=0 && !lastType.equals(param.getType())){
                 translation = translation.substring(0,translation.length()-2);
                 translation += ": ";
                 translation += lastType;

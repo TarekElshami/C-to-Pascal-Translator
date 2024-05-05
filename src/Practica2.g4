@@ -15,7 +15,6 @@ import java.util.List;
 }
 @parser::members {
  private Program program = new Program();
- private Blq currentBlq = new Blq();
  private String methName = null;
 }
 
